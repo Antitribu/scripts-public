@@ -1,4 +1,4 @@
-class scripts {
+class scriptspublic {
 
   file { "/usr/local/scripts/public/":
     owner 	=> "root",
