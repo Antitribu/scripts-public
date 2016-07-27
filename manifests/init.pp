@@ -1,10 +1,14 @@
 class scripts {
 
   file { "/usr/local/scripts/public/":
-    ensure => directory,
-    owner => "root",
-    group => "root",
-    mode  => 755,
+    owner 	=> "root",
+    group 	=> "root",
+    mode  	=> 775,
+  	purge   => true,
+  	recurse => true,
+  	force   => true,
+  	ensure  => present,
+  	ignore  => ".svn",
+  	source => "puppet:///modules/scriptspublic/default/$kernel"
   }
-
 }
