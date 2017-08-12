@@ -60,7 +60,7 @@ do
     echo
     echo
     
-    /usr/bin/ffmpeg -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
+    time /usr/bin/ffmpeg -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
     echo output $?
     ERRCOUNT=`grep -i error "$FILENAM.ffmpeg_checked.working" |wc -l`
     
