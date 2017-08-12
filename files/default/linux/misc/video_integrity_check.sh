@@ -44,16 +44,55 @@ echo Finding files in $FROM_DIRECTORY to move out...
 
 /usr/bin/find $FROM_DIRECTORY -type f -name "*.mp4" -print0 | while read -d $'\0' FILENAM
 do
-	echo
-	echo Checking $FILENAM
-	if [[ -e "$FILENAM.ffmpeg_checked" ]]
-	then 
-		echo already ffmepg_checked!	
-	else
-		echo ffmpeging
-		echo /usr/bin/ffmpeg -i $FILENAM -v error -f null - 2\>"$FILENAM.ffmpeg_checked.working"
-		/usr/bin/ffmpeg -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
-		echo output $?
-		
-	fi
+  echo
+  echo Checking $FILENAM
+  if [[ -e "$FILENAM.ffmpeg_checked" ]]
+  then 
+    echo already ffmepg_checked!  
+  else
+    echo ffmpeging
+    echo /usr/bin/ffmpeg -i $FILENAM -v error -f null - 2\>"$FILENAM.ffmpeg_checked.working"
+    #/usr/bin/ffmpeg -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
+    echo output $?
+    ERRCOUNT=`grep -i error "$FILENAM.ffmpeg_checked.working" |wc -l`
+    
+    if [ $ERRCOUNT -gt 0 ]
+    then
+      echo found $ERRCOUNT errors with $FILENAM; moving
+      #
+      # Find where we are going to copy to and check for a duplicate file 
+      #
+      ARCHSTR="/base/"
+      if [[ -e "$GOTO_DIRECTORY$ARCHSTR$FILENAM" ]]
+      then
+        ARCHSTR="/dupe-`date +%Y%m%d`/"
+        if [[ -e "$GOTO_DIRECTORY$ARCHSTR$FILENAM" ]]
+        then
+          ARCHSTR="/dupe-`date +%Y%m%d%H%M`/"
+          if [[ -e "$GOTO_DIRECTORY$ARCHSTR$FILENAM" ]]
+          then
+            #ignore the file
+            echo Hit a duplicate for this file $FILENAM
+            continue
+          fi
+        fi
+      fi
+      
+      # Make sure our new directory exists
+      #
+      NEWDIR=$GOTO_DIRECTORY$ARCHSTR`dirname "$FILENAM"` 
+      if [[ ! -d $NEWDIR ]]
+      then
+        mkdir -p $NEWDIR
+      fi
+      
+      #
+      # Move out the file
+      # 
+      echo Moving $FILENAM $NEWDIR/`basename $FILENAM`
+      mv $FILENAM $NEWDIR/`basename $FILENAM`  
+	  else
+	    
+    fi
+  fi
 done
