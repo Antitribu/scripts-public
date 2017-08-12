@@ -51,7 +51,7 @@ do
 		echo already ffmepg_checked!	
 	else
 		echo ffmpeging
-		echo /usr/bin/ffmpeg -i $FILENAM -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
+		echo /usr/bin/ffmpeg -i $FILENAM -v error -f null - 2\>"$FILENAM.ffmpeg_checked.working"
 		/usr/bin/ffmpeg -i $FILENAM -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
 	fi
 done
