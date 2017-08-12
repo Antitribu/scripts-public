@@ -54,8 +54,12 @@ do
   then 
     echo already ffmepg_checked!  
   else
-    echo ffmpeging
-    echo /usr/bin/ffmpeg -i \"$FILENAM\" -v error -f null - 2\>"$FILENAM.ffmpeg_checked.working"
+    echo Running.....
+    echo
+    echo /usr/bin/ffmpeg -i \"$FILENAM\" -v error -f null - 2\>\"$FILENAM.ffmpeg_checked.working\"
+    echo
+    echo
+    
     /usr/bin/ffmpeg -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
     echo output $?
     ERRCOUNT=`grep -i error "$FILENAM.ffmpeg_checked.working" |wc -l`
