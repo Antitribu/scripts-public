@@ -1,6 +1,6 @@
 class scriptspublic {
   
-  $kernel_downcase = downcase($kernel)
+  $kernel_downcase = inline_template('<%= kernel.downcase %>')
 
   file { "/usr/local/scripts/":
     owner   => "root",
@@ -21,3 +21,7 @@ class scriptspublic {
   	source  => "puppet:///modules/scriptspublic/default/$kernel_downcase"
   }
 }
+
+
+ 
+ 
