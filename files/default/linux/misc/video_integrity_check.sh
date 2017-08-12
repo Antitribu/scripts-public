@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #export LOGTO="FILE"
-export NOEXITONERROR="TRUE"
-. /usr/local/scripts/public/stdlib.sh
+#export NOEXITONERROR="TRUE"
+#. /usr/local/scripts/public/stdlib.sh
 
 # ./video_integrity_check.sh X Y
 #
@@ -51,7 +51,6 @@ do
 		echo already ffmepg_checked!	
 	else
 		echo ffmpeging
-		IFS=$SAVEIFS
 		echo /usr/bin/ffmpeg -i $FILENAM -v error -f null - 2\>"$FILENAM.ffmpeg_checked.working"
 		/usr/bin/ffmpeg -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
 	fi
