@@ -1,6 +1,6 @@
 class scriptspublic {
   
-  $kernel_downcase = inline_template('<%= kernel.downcase %>')
+  $kernel_downcase = inline_template('<%= @kernel.downcase %>')
 
   file { "/usr/local/scripts/":
     owner   => "root",
