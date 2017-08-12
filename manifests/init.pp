@@ -2,6 +2,13 @@ class scriptspublic {
   
   $kernel_downcase = downcase($kernel)
 
+  file { "/usr/local/scripts/":
+    owner   => "root",
+    group   => "root",
+    mode    => "0775",
+    ensure  => "directory",
+  }
+
   file { "/usr/local/scripts/public/":
     owner 	=> "root",
     group 	=> "root",
