@@ -90,9 +90,11 @@ do
       # Move out the file
       # 
       echo Moving $FILENAM $NEWDIR/`basename $FILENAM`
-      mv $FILENAM $NEWDIR/`basename $FILENAM`  
+      mv $FILENAM $NEWDIR/`basename $FILENAM` 
+      mv $FILENAM.ffmpeg_checked.working $NEWDIR/`basename $FILENAM`.ffmpeg_checked
 	  else
-	  echo file fine  
+	    echo file fine  
+	    mv "$FILENAM.ffmpeg_checked.working" "$FILENAM.ffmpeg_checked"
     fi
   fi
 done
