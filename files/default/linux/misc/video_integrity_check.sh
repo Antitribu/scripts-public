@@ -45,6 +45,10 @@ echo Finding files in $FROM_DIRECTORY to move out...
 /usr/bin/find $FROM_DIRECTORY -type f -name "*.mp4" -print0 | while read -d $'\0' FILENAM
 do
   echo
+  echo
+  echo
+  echo
+  echo ------------------------------------
   echo Checking $FILENAM
   if [[ -e "$FILENAM.ffmpeg_checked" ]]
   then 
