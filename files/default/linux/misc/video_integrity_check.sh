@@ -58,7 +58,7 @@ do
     
     if [ $ERRCOUNT -gt 0 ]
     then
-      echo found $ERRCOUNT errors with $FILENAM; moving
+      echo "found $ERRCOUNT errors with $FILENAM moving"
       #
       # Find where we are going to copy to and check for a duplicate file 
       #
