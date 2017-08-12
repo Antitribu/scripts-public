@@ -92,7 +92,7 @@ do
       echo Moving $FILENAM $NEWDIR/`basename $FILENAM`
       mv $FILENAM $NEWDIR/`basename $FILENAM`  
 	  else
-	    
+	  echo file fine  
     fi
   fi
 done
