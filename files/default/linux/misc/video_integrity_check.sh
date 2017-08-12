@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #export LOGTO="FILE"
-#export NOEXITONERROR="TRUE"
-#. /usr/local/scripts/public/stdlib.sh
+export NOEXITONERROR="TRUE"
+. /usr/local/scripts/public/stdlib.sh
 
 # ./video_integrity_check.sh X Y
 #
