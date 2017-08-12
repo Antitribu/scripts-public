@@ -2,7 +2,7 @@
 
 #export LOGTO="FILE"
 export NOEXITONERROR="TRUE"
-. /usr/local/scripts/root/stdlib.sh
+. /usr/local/scripts/public/stdlib.sh
 
 # ./video_integrity_check.sh X Y
 #
