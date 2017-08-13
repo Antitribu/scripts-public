@@ -44,8 +44,7 @@ fi
 
 if [[ ! -d "$GOTO_DIRECTORY" ]]
 then
-    echo "To directory supplied do not exist"
-    helpme
+    mkdir -p "$GOTO_DIRECTORY"
 fi
 
 SAVEIFS=$IFS
