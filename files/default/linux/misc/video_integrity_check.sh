@@ -17,6 +17,17 @@ function helpme
   exit
 }
 
+echo $0
+
+r=$(pidof -x -o $$ $0)
+set -- $r
+if [ "${#@}" -eq 1 ];then
+ echo "Running"
+else
+ echo "Already Running"
+ exit 0
+fi
+
 FROM_DIRECTORY=$1
 GOTO_DIRECTORY=$2
 

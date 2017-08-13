@@ -118,7 +118,7 @@ trap stdlib_scripterr ERR
 # This is where I should log to.
 mkdir -p /var/log/scripts
 mkdir -p /var/log/scripts/json
-MYLOG=/var/log/scripts/`basename $0`-`date +%Y%m%d%H%M%S`-$$.log
+MYLOG=/var/log/scripts/`basename $0`-`date +%Y-%m-%d-%H:%M:%S`--$$.log
 
 #
 # If LOGTO is set to "FILE" then we should just dump the logs to a file... great for cron!
