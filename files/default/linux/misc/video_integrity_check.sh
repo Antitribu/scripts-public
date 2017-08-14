@@ -17,17 +17,6 @@ function helpme
   exit
 }
 
-echo $0
-
-r=$(pidof -x -o $$ $0)
-set -- $r
-if [ "${#@}" -eq 1 ];then
- echo "Running"
-else
- echo "Already Running"
- exit 0
-fi
-
 FROM_DIRECTORY=$1
 GOTO_DIRECTORY=$2
 
@@ -45,6 +34,17 @@ fi
 if [[ ! -d "$GOTO_DIRECTORY" ]]
 then
     mkdir -p "$GOTO_DIRECTORY"
+fi
+
+echo $0
+
+r=$(pidof -x -o $$ $0)
+set -- $r
+if [ "${#@}" -eq 1 ];then
+ echo "Running"
+else
+ echo "Already Running"
+ exit 0
 fi
 
 SAVEIFS=$IFS
