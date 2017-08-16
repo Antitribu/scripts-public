@@ -1,4 +1,8 @@
 #!/bin/bash
+. /usr/local/scripts/public/stdlib.sh
+
+echo Zone ID $1
+echo Recordset $2
 
 # Hosted Zone ID e.g. BJBK35SKMM9OE
 ZONEID="$1"
