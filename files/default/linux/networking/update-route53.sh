@@ -86,7 +86,7 @@ else
 EOF
 
     # Update the Hosted Zone record
-    aws route53 change-resource-record-sets \
+    /usr/local/bin/aws route53 change-resource-record-sets \
         --hosted-zone-id $ZONEID \
         --change-batch file://"$TMPFILE" >> "$LOGFILE"
     echo "" >> "$LOGFILE"
