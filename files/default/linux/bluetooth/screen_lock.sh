@@ -14,6 +14,8 @@ then
   then
     echo killing screensaver
     sudo -u pi kill $SCRSAV
+  else 
+    echo Already unlocked 
   fi
 else
   echo Phone is away
@@ -23,5 +25,7 @@ else
     sudo -u pi xscreensaver &
     sleep 1
     sudo -u pi xscreensaver-command -lock
+  else
+    echo Still locked...
   fi
 fi
