@@ -17,6 +17,8 @@ then
   fi
 else
   echo Phone is away
+  echo $SCRSAV
+  echo ====
   if [ ! -z "$SCRSAV" ]
   then
     echo starting screensaver
