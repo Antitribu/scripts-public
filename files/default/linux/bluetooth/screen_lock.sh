@@ -15,7 +15,7 @@ then
     echo killing screensaver
     sudo -u pi kill $SCRSAV
   else 
-    echo Already unlocked 
+    echo Already unlocked..
   fi
 else
   echo Phone is away
