@@ -10,14 +10,14 @@ SCRSAV=`sudo -u pi ps aux |grep "xscreensaver" |grep -v grep |awk '{print $2}'`
 if [ $NEARBY -eq 0 ]
 then
   echo Phone is near
-  if [ -z "$FOO" ]
+  if [ -z "$SCRSAV" ]
   then
     echo killing screensaver
     sudo -u pi kill $SCRSAV
   fi
 else
   echo Phone is away
-  if [ ! -z "$FOO" ]
+  if [ ! -z "$SCRSAV" ]
   then
     echo starting screensaver
     sudo -u pi xscreensaver &
