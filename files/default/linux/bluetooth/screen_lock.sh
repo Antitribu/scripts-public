@@ -5,13 +5,23 @@ export NOEXITONERROR="TRUE"
 BLUMAC=$1
 NEARBY=`hcitool cc $BLUMAC && hcitool auth $BLUMAC && hcitool dc $BLUMAC; echo $?`
 
+SCRSAV=`sudo -u pi ps aux |grep "xscreensaver" |grep -v grep |awk '{print $2}'`
+
 if [ $NEARBY -eq 0 ]
 then
   echo Phone is near
-  sudo -u pi kill `ps aux |grep "xscreensaver" |grep -v grep |awk '{print $2}'`
+  if [ -z "$FOO" ]
+  then
+    echo killing screensaver
+    sudo -u pi kill $SCRSAV
+  fi
 else
   echo Phone is away
-  sudo -u pi xscreensaver &
-  sleep 1
-  sudo -u pi xscreensaver-command -lock
+  if [ ! -z "$FOO" ]
+  then
+    echo starting screensaver
+    sudo -u pi xscreensaver &
+    sleep 1
+    sudo -u pi xscreensaver-command -lock
+  fi
 fi
