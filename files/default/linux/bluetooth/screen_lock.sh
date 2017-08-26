@@ -1,5 +1,6 @@
 #!/bin/bash
 export NOEXITONERROR="TRUE"
+export LOGTO="FILE"
 . /usr/local/scripts/public/stdlib.sh
 
 BLUMAC=$1
