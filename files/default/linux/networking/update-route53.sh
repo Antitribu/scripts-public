@@ -1,4 +1,5 @@
 #!/bin/bash
+export LOGTO="FILE"
 . /usr/local/scripts/public/stdlib.sh
 
 echo Zone ID $1
