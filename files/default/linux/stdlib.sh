@@ -73,12 +73,14 @@ stdlib_logtojson() {
   if [ $RETCODE != 0 ] 
   then
     echo 1
-    d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
-    d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)  
-  else
-    echo 2
     d1=$(date -d "$START_DATE" +%s)
     d2=$(date -d "$STOP_DATE" +%s)
+
+  else
+    echo 2
+    d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
+    d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)  
+
   fi
   RUNTIME=$((d2 - d1))
   LOGTEXT=`cat $MYLOG | $PYTHON -c 'import json,sys; print json.dumps(sys.stdin.read())'`
