@@ -16,14 +16,14 @@
 #
 stdlib_startscript() {
   START_DATE=`date`
-  echo `basename $0` $@ run by $SLOGNAM as $SWHOAMI is running with pid $$ at `date` >> $MYLOG
-  $LOGGER `basename $0` $@ run by $SLOGNAM as $SWHOAMI is running with pid $$ at `date`
+  echo `basename $0` $@ run by $SLOGNAM as $SWHOAMI is running with pid $$ at $START_DATE >> $MYLOG
+  $LOGGER `basename $0` $@ run by $SLOGNAM as $SWHOAMI is running with pid $$ at $START_DATE
 }
 
 stdlib_stopscript() {
   STOP_DATE=`date`
-  echo `basename $0` $@ run by $SLOGNAM as $SWHOAMI is stopped `date` >> $MYLOG
-  $LOGGER `basename $0` $@ run by $SLOGNAM as $SWHOAMI is stopped `date`
+  echo `basename $0` $@ run by $SLOGNAM as $SWHOAMI is stopped $STOP_DATE >> $MYLOG
+  $LOGGER `basename $0` $@ run by $SLOGNAM as $SWHOAMI is stopped $STOP_DATE
   if [ -z "$LTESUBJ" ]
   then
     LTESUBJ="Script on `hostname` - `basename $0` $@"
@@ -33,8 +33,9 @@ stdlib_stopscript() {
 }
 
 stdlib_killscript() {
-  echo `basename $0` $@ run by $SLOGNAM as $SWHOAMI is killed `date` >> $MYLOG
-  $LOGGER `basename $0` $@ run by $SLOGNAM as $SWHOAMI is killed `date`
+  KILL_DATE=`date`
+  echo `basename $0` $@ run by $SLOGNAM as $SWHOAMI is killed $KILL_DATE >> $MYLOG
+  $LOGGER `basename $0` $@ run by $SLOGNAM as $SWHOAMI is killed $KILL_DATE
   LTESUBJ="Script Killed on `hostname` - `basename $0` $@"  
   LTEERR="True"
   exit $?
@@ -42,15 +43,16 @@ stdlib_killscript() {
 }
 
 stdlib_scripterr() {
+  ERROR_DATE=`date`
   if [ "$NOEXITONERROR" = "TRUE" ]
   then
-    echo `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI had an error on `caller` and is continuing `date` >> $MYLOG
-    $LOGGER `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI  had an error on `caller` and is continuing `date` `date`
+    echo `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI had an error on `caller` and is continuing $ERROR_DATE >> $MYLOG
+    $LOGGER `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI  had an error on `caller` and is continuing $ERROR_DATE
     LTESUBJ="Script Error on `hostname` - `basename $0` $@"
     LTEERR="True"
   else 
-    echo `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI had an error on `caller` and aborted `date` >> $MYLOG
-    $LOGGER `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI had an error on `caller` and aborted `date` `date`
+    echo `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI had an error on `caller` and aborted $ERROR_DATE >> $MYLOG
+    $LOGGER `basename $0` $@ with pid $$ run by $SLOGNAM as $SWHOAMI had an error on `caller` and aborted $ERROR_DATE
     LTESUBJ="Script Aborted on `hostname` - `basename $0` $@"
     LTEERR="True"
     exit 999
@@ -65,8 +67,8 @@ stdlib_logtofile() {
 stdlib_logtojson() {
   HOSTN=`/bin/hostname`
   SCRIPTN=`basename $0`
-  d1=$(date -d "$START_DATE" +%s)
-  d2=$(date -d "$STOP_DATE" +%s)
+  d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
+  d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
   RUNTIME=$((d2 - d1))
   LOGTEXT=`cat $MYLOG | $PYTHON -c 'import json,sys; print json.dumps(sys.stdin.read())'`
   echo "{ \"script_start\": \"$START_DATE\", \"script_stop\": \"$STOP_DATE\", \"script_name\": \"$SCRIPTN\", \"script_runtime\": \"$RUNTIME\", \"host\": \"$HOSTN\", \"pid\": \"$$\",  \"LOGTO\": \"$LOGTO\", \"LOGEMAIL\": \"$LOGEMAIL\", \"LTEERR\": \"$LTEERR\", \"LOGEMAILERRORONLY\": \"$LOGEMAILERRORONLY\", \"NOEXITONERROR\": \"$NOEXITONERROR\", \"whoami\": \"$SWHOAMI\", \"logname\": \"$SLOGNAM\", \"logfile\": \"$MYLOG\", \"logtext\": $LOGTEXT }" >> /var/log/scripts/json/`date +%Y%m%d`.json
