@@ -69,13 +69,13 @@ stdlib_logtojson() {
   SCRIPTN=`basename $0`
   eval date -d "$START_DATE"
   ret_code=$?
-  if [ $RETCODE -eq 0 ] 
+  if [ $RETCODE != 0 ] 
   then
-    d1=$(date -d "$START_DATE" +%s)
-    d2=$(date -d "$STOP_DATE" +%s)
-  else
     d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
     d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)  
+  else
+    d1=$(date -d "$START_DATE" +%s)
+    d2=$(date -d "$STOP_DATE" +%s)
   fi
   RUNTIME=$((d2 - d1))
   LOGTEXT=`cat $MYLOG | $PYTHON -c 'import json,sys; print json.dumps(sys.stdin.read())'`
