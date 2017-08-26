@@ -67,13 +67,15 @@ stdlib_logtofile() {
 stdlib_logtojson() {
   HOSTN=`/bin/hostname`
   SCRIPTN=`basename $0`
-  eval date -d "$START_DATE"
+  eval date -d "$START_DATE" > /dev/null
   RETCODE=$?
   if [ $RETCODE != 0 ] 
   then
+    echo 1
     d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
     d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)  
   else
+    echo 2
     d1=$(date -d "$START_DATE" +%s)
     d2=$(date -d "$STOP_DATE" +%s)
   fi
