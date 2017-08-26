@@ -67,8 +67,16 @@ stdlib_logtofile() {
 stdlib_logtojson() {
   HOSTN=`/bin/hostname`
   SCRIPTN=`basename $0`
-  d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
-  d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
+  eval date -d "$START_DATE"
+  ret_code=$?
+  if [ $RETCODE -eq 0 ] 
+  then
+    d1=$(date -d "$START_DATE" +%s)
+    d2=$(date -d "$STOP_DATE" +%s)
+  else
+    d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
+    d2=$(date -d "`echo $STOP_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)  
+  fi
   RUNTIME=$((d2 - d1))
   LOGTEXT=`cat $MYLOG | $PYTHON -c 'import json,sys; print json.dumps(sys.stdin.read())'`
   echo "{ \"script_start\": \"$START_DATE\", \"script_stop\": \"$STOP_DATE\", \"script_name\": \"$SCRIPTN\", \"script_runtime\": \"$RUNTIME\", \"host\": \"$HOSTN\", \"pid\": \"$$\",  \"LOGTO\": \"$LOGTO\", \"LOGEMAIL\": \"$LOGEMAIL\", \"LTEERR\": \"$LTEERR\", \"LOGEMAILERRORONLY\": \"$LOGEMAILERRORONLY\", \"NOEXITONERROR\": \"$NOEXITONERROR\", \"whoami\": \"$SWHOAMI\", \"logname\": \"$SLOGNAM\", \"logfile\": \"$MYLOG\", \"logtext\": $LOGTEXT }" >> /var/log/scripts/json/`date +%Y%m%d`.json
