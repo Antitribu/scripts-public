@@ -68,7 +68,7 @@ stdlib_logtojson() {
   HOSTN=`/bin/hostname`
   SCRIPTN=`basename $0`
   eval date -d "$START_DATE"
-  ret_code=$?
+  RETCODE=$?
   if [ $RETCODE != 0 ] 
   then
     d1=$(date -d "`echo $START_DATE |awk '{print $3 " " $2 " " $4 " " $5}'`" +%s)
