@@ -67,7 +67,8 @@ stdlib_logtofile() {
 stdlib_logtojson() {
   HOSTN=`/bin/hostname`
   SCRIPTN=`basename $0`
-  eval date -d "$START_DATE" > /dev/null
+  echo date -d "$START_DATE"
+  date -d "$START_DATE"
   RETCODE=$?
   if [ $RETCODE != 0 ] 
   then
