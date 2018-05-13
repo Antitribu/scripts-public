@@ -14,6 +14,7 @@ LMIN=180
 PIDLOC="/var/run/puppet/agent.pid"
 RUNLOC="/var/lib/puppet/state/agent_catalog_run.lock"
 
+
 #
 # Check that the agent lock isn't there longer than is reasonable
 #
