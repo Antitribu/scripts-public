@@ -1,6 +1,13 @@
 #!/bin/bash
 #
 
+#Grab correct binary
+if [ -x /opt/puppetlabs/puppet/bin/puppet ]; then
+    PUPPET="/opt/puppetlabs/puppet/bin/puppet"
+else
+    PUPPET="/usr/bin/puppet"
+fi
+
 # If the running agents PID is lest than the mmin old we should give it more time.
 MMIN=59
 LMIN=180
@@ -46,6 +53,6 @@ fi
 #
 if [ ! -f $PIDLOC ]; then
   /usr/bin/logger "Puppet starting from script with the hostname `hostname`"
-  /usr/bin/puppet agent --onetime --logdest syslog
+  $PUPPET agent --onetime --logdest syslog
 fi
 
