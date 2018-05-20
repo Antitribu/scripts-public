@@ -1,17 +1,18 @@
 #!/bin/bash
 #
 
-#Grab correct binary
+#Grab correct binary & pid
 if [ -x /opt/puppetlabs/puppet/bin/puppet ]; then
-    PUPPET="/opt/puppetlabs/puppet/bin/puppet"
+  PUPPET="/opt/puppetlabs/puppet/bin/puppet"
+  PIDLOC="/var/run/puppetlabs/agent.pid"
 else
-    PUPPET="/usr/bin/puppet"
+  PUPPET="/usr/bin/puppet"
+  PIDLOC="/var/run/puppet/agent.pid"
 fi
 
 # If the running agents PID is lest than the mmin old we should give it more time.
 MMIN=59
 LMIN=180
-PIDLOC="/var/run/puppet/agent.pid"
 RUNLOC="/var/lib/puppet/state/agent_catalog_run.lock"
 
 
