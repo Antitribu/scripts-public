@@ -10,7 +10,7 @@ mkdir -p $DIREC/day
 mkdir -p $DIREC/week
 mkdir -p $DIREC/month
 
-/usr/bin/mysqldump -h $HOSTN -u $USERN -p $PASSW --all-databases > $DIREC/day/mysql_dump.sql
+/usr/bin/mysqldump -h $HOSTN -u $USERN -p$PASSW --all-databases > $DIREC/day/mysql_dump.sql
 
 if [ `date '+%u'` -eq 0 ]
 then
