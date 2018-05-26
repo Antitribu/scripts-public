@@ -16,7 +16,9 @@ mkdir -p $DIREC/month
 databases=`$MYSQL --user=$USERN -p$PASSW -h $HOSTN -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema)"`
 
 for db in $databases; do
+  echo Backing up $db
   $MYSQLDUMP --force --opt --user=$USERN -p$PASSW -h $HOSTN --databases $db | gzip > "$DIREC/day/$db.gz"
+  echo Done $db
 done
 
 if [ `date '+%u'` -eq 0 ]
