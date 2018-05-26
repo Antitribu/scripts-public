@@ -6,11 +6,18 @@ USERN=$2
 PASSW=$3
 DIREC=$4
 
+MYSQL=/usr/bin/mysql
+MYSQLDUMP=/usr/bin/mysqldump
+
 mkdir -p $DIREC/day
 mkdir -p $DIREC/week
 mkdir -p $DIREC/month
 
-/usr/bin/mysqldump -h $HOSTN -u $USERN -p$PASSW --all-databases > $DIREC/day/mysql_dump.sql
+databases=`$MYSQL --user=$USERN -p$PASSW -h $HOSTN -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema)"`
+
+for db in $databases; do
+  $MYSQLDUMP --force --opt --user=$USERN -p$PASSW -h $HOSTN --databases $db | gzip > "$DIREC/day/$db.gz"
+done
 
 if [ `date '+%u'` -eq 0 ]
 then
