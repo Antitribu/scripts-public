@@ -14,7 +14,7 @@ TIMESTAMP=$(date +"%Y%m%d%H%M")
 mkdir -p "$FULL_CHAIN_LIVE_PEMS_DIR"
 
 # Renew all Let's Encrypt certificates
-/usr/bin/certbot renew
+/usr/bin/certbot renew --webroot -w $1
 CRETVAL=$?
 if [ $? -eq 0 ] ; then
   mkdir -p "$FULL_CHAIN_TMP_PEMS_DIR"
