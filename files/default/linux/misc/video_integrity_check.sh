@@ -14,11 +14,12 @@ function helpme
   echo "This script should have two arguments like so ./video_integrity_check.sh X Y"
   echo "X is the directory to scan"
   echo "Y is the directory to push bad files"
-  exit
+  exit 64
 }
 
 FROM_DIRECTORY=$1
 GOTO_DIRECTORY=$2
+RETVAL=0
 
 if [ "$#" -ne 2 ]; then
     echo "Illegal number of parameters"
@@ -54,16 +55,17 @@ echo Finding files in $FROM_DIRECTORY to move out...
 
 /usr/bin/find $FROM_DIRECTORY -type f \( -name "*.m4v" -o -name "*.mp4" -o -name "*.avi" \) -print0 | while read -d $'\0' FILENAM
 do
-  echo
-  echo
-  echo
-  echo
-  echo ------------------------------------
-  echo Checking $FILENAM
   if [[ -e "$FILENAM.ffmpeg_checked" ]]
   then 
-    echo already ffmepg_checked!  
+    FOO=1
+    #echo already ffmepg_checked!
   else
+    echo
+    echo
+    echo
+    echo
+    echo ------------------------------------
+    echo Checking $FILENAM
     echo Running.....
     echo
     echo /usr/bin/ffmpeg -i \"$FILENAM\" -v error -f null - 2\>\"$FILENAM.ffmpeg_checked.working\"
@@ -76,6 +78,7 @@ do
     
     if [ $ERRCOUNT -gt 0 ]
     then
+      RETVAL=127
       echo "found $ERRCOUNT errors with $FILENAM moving"
       #
       # Find where we are going to copy to and check for a duplicate file 
@@ -116,3 +119,4 @@ do
     fi
   fi
 done
+exit $RETVAL
