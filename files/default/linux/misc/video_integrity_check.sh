@@ -63,15 +63,17 @@ do
   else
     echo
     echo
-    echo
-    echo
     echo ------------------------------------
-    echo Checking $FILENAM
-    echo Running.....
+    echo Checking $FILENAM ....
     echo
     echo /usr/bin/ffmpeg -i \"$FILENAM\" -v error -f null - 2\>\"$FILENAM.ffmpeg_checked.working\"
     echo
-    echo
+
+    touch "$FILENAM.ffmpeg_checked.working"
+    if [ $? -ne 0 ]
+    then 
+      exit 32
+    fi
     
     time /usr/bin/ffmpeg -nostdin -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
     echo output $?
