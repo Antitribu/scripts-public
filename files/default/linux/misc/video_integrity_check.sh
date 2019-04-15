@@ -71,6 +71,7 @@ do
     if [ $? -ne 0 ]
     then 
       echo Bombing out
+      RETVAL=32
       exit 67
       echo Never here
     fi
