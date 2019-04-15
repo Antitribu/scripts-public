@@ -72,6 +72,7 @@ do
     touch "$FILENAM.ffmpeg_checked.working"
     if [ $? -ne 0 ]
     then 
+      echo Bombing out
       exit 32
     fi
     
