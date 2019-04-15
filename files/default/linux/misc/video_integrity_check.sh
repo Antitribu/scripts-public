@@ -1,6 +1,4 @@
 #!/bin/bash
-
-#export LOGTO="FILE"
 export NOEXITONERROR="TRUE"
 . /usr/local/scripts/public/stdlib.sh
 
@@ -73,7 +71,8 @@ do
     if [ $? -ne 0 ]
     then 
       echo Bombing out
-      exit 32
+      exit 67
+      echo Never here
     fi
     
     time /usr/bin/ffmpeg -nostdin -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
