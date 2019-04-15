@@ -39,14 +39,15 @@ fi
 
 echo $0
 
-r=$(pidof -x -o $$ $0)
-set -- $r
-if [ "${#@}" -eq 1 ];then
- echo "Running"
-else
- echo "Already Running"
- exit 0
-fi
+# rely on jenkins to enforce concurrency
+#r=$(pidof -x -o $$ $0)
+#set -- $r
+#if [ "${#@}" -eq 1 ];then
+# echo "Running"
+#else
+# echo "Already Running"
+# exit 0
+#fi
 
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
