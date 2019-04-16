@@ -55,7 +55,6 @@ echo Finding files in $FROM_DIRECTORY to move out...
 FILELIST=`/usr/bin/find $FROM_DIRECTORY -type f \( -name "*.m4v" -o -name "*.mp4" -o -name "*.avi" \)`
 for FILENAM in $FILELIST
 do
-  echo $FILENAM
   if [[ -e "$FILENAM.ffmpeg_checked" ]]
   then 
     FOO=1
