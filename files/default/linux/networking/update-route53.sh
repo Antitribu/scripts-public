@@ -63,6 +63,7 @@ if [ "$IP" == "$IPDNS" ] ; then
     exit 0
 else
     echo "`date` IP has changed from $IPDNS to $IP" >> "$LOGFILE"
+    logger -t IPCHANGE "IP has changed from $IPDNS to $IP"
     # Fill a temp file with valid JSON
     TMPFILE=$(mktemp /tmp/temporary-file.XXXXXXXX)
     cat > ${TMPFILE} << EOF
