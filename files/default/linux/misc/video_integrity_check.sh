@@ -65,7 +65,7 @@ do
     echo ------------------------------------
     echo Checking $FILENAM ....
     echo
-    echo /usr/bin/ffmpeg -i \"$FILENAM\" -v error -f null - 2\>\"$FILENAM.ffmpeg_checked.working\"
+    echo nice -n 20 /usr/bin/ffmpeg -i \"$FILENAM\" -v error -f null - 2\>\"$FILENAM.ffmpeg_checked.working\"
     echo
 
     touch "$FILENAM.ffmpeg_checked.working"
@@ -77,7 +77,7 @@ do
       echo Never here
     fi
     
-    time /usr/bin/ffmpeg -nostdin -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
+    time nice -n 20 /usr/bin/ffmpeg -nostdin -i "$FILENAM" -v error -f null - 2>"$FILENAM.ffmpeg_checked.working"
     echo output $?
     ERRCOUNT=`grep -i error "$FILENAM.ffmpeg_checked.working" |wc -l`
     
