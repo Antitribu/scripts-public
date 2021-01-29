@@ -20,7 +20,7 @@ COMMENT="Auto updating @ `date`"
 TYPE="A"
 
 # Get the external IP address
-IP=`curl -sS https://think.io/ip`
+IP=`curl ifconfig.me`
 IPDNS=`/usr/bin/host myhome.think.io| /usr/bin/awk '{print $4}'`
 
 function valid_ip()
