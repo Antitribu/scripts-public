@@ -1,3 +1,3 @@
 Public Scripts
 
-Ymmv
+Ymmv, no warranty etc
