@@ -30,4 +30,4 @@ do
   let COUNTER+=1
 done
 
-echo $CRONSTR
+echo -e $CRONSTR
