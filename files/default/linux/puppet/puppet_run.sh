@@ -42,9 +42,15 @@ fi
 if [ -f $PIDLOC ]; then
   RT=`find $PIDLOC -mmin +$MMIN |wc -l`
   if [ $RT -gt 0 ]; then
-    /usr/bin/logger "Puppet is killed after running too long."
-    /usr/bin/killall puppet
-    /bin/sleep 30
+    MYPID=`cat $PIDLOC`
+    if ! kill $MYPID > /dev/null 2>&1; then
+      echo "Could not send SIGTERM to process $pid" >&2
+      rm $PIDLOC
+    else
+      /usr/bin/logger "Puppet is killed after running too long."
+      /usr/bin/killall puppet
+      /bin/sleep 30
+    fi
   else
     /usr/bin/logger "Puppet is still running less than $MMIN minutes."
   fi
